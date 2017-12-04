@@ -47,21 +47,10 @@ width, height = rgbImage.size
 
 reds = getAllReds(rgbImage, width, height)
 
-
-print(reds[0:5])
 bitList = makeLSBList(reds)
 
 byteArray = listToByteArray(bitList)
 
 
 resultat = byteArray[0:126].decode('utf-8')
-
-
-
 print(resultat)
-
-print(len(bitList)/1280)
-
-byte = [True, True, True, True, True, True, True, True]
-
-print(decodeByte(byte))
