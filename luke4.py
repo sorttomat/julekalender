@@ -13,6 +13,8 @@ def numberOfEachLetter(word):
     antBokstaver = []
     for bokstav in word:
         antBokstaver.append(checkElementInThing(word, bokstav))
+        word = word.replace(bokstav, "")
+
     return antBokstaver
 
 def sjekkMulighet(lst):
@@ -22,6 +24,8 @@ def sjekkMulighet(lst):
             partallOddetall.append(True)
         else:
             partallOddetall.append(False)
+            print(False)
+            
     if checkElementInThing(partallOddetall, False) == 1 or checkElementInThing(partallOddetall, False) == 0:
         return True
     return False

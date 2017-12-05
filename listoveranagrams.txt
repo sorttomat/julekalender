@@ -1,5 +1,6 @@
 abbas
 acetate
+alfalfa
 allah
 allan
 appease
@@ -9,6 +10,7 @@ assay
 assigning
 attaining
 baba
+barbara
 belle
 bobo
 carcass
@@ -51,6 +53,7 @@ lotto
 lulu
 magma
 mama
+mamma
 miami
 mimic
 mississippi
@@ -72,6 +75,7 @@ queue
 reappears
 redress
 referee
+resellers
 retreat
 ringing
 seeds
@@ -106,4 +110,4 @@ willi
 yoyo
 zorro
 Number of palindromes: 
-107
+111

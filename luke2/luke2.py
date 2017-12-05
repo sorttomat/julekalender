@@ -151,7 +151,7 @@ def tellUbesøkt(labyrint, fotspor, gridSize):
     return antall
     
 
-gridSize = 1000           
+gridSize = 10           
 
 
 fotspor = makeFotspor(gridSize)          
@@ -161,5 +161,11 @@ labyrint = makeGrid(gridSize)
 kalkulerGrid(labyrint, gridSize)
 
 startEventyr(labyrint, fotspor, gridSize)
+
+printGrid2(labyrint, gridSize)
+print()
+printFotspor(fotspor, gridSize)
+print()
+printBegge(labyrint, fotspor, gridSize)
 
 print(tellUbesøkt(labyrint, fotspor, gridSize))

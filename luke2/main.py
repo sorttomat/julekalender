@@ -7,10 +7,4 @@ def main():
     labyrint.startEventyr()
     labyrint.printLabyrint()
 
-#main()
-skjerm = curses.initscr()
-
-skjerm.addstr(0,0, "Hello WOrld!")
-skjerm.refresh()
-skjerm.getch()
-skjerm.endwin()
+main()

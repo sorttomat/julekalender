@@ -104,6 +104,3 @@ class Labyrint():
         y = 0
         self._gå(x, y)
     
-    
-    def syx(self, x, y):
-        curses.setsyx(y, x)
