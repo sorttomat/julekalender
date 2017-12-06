@@ -24,8 +24,7 @@ def sjekkMulighet(lst):
             partallOddetall.append(True)
         else:
             partallOddetall.append(False)
-            print(False)
-            
+            print(False)        
     if checkElementInThing(partallOddetall, False) == 1 or checkElementInThing(partallOddetall, False) == 0:
         return True
     return False
