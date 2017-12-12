@@ -11,4 +11,13 @@ class Rute():
     def hentFarge(self):
         return self._farge #False = svart, True = hvit
 
+    def endreFarge(self):
+        self._farge = not self._farge
+    
+    def hentX(self):
+        return self._xVerdi
+
+    def hentY(self):
+        return self._yVerdi
+
     
