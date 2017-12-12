@@ -11,5 +11,10 @@ for num in alleBokstaver[0]:
     if len(ja) == len(alleBokstaver) - 1:
         tall = num
 
-print(tall)
-    
+#print(tall)
+
+
+
+tall = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+print(6 in tall)  

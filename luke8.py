@@ -1,5 +1,9 @@
+import time
+
+
 def regnKvadrat(tall):
-    return tall ** 2
+    kvadrat = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+    return kvadrat[tall]
 
 def finnNesteTall(tall):
     nyttTall = 0
@@ -22,10 +26,14 @@ def kjor(tak):
     for i in range(tak + 1):
         if (sjekkJuletall(i)):
             sumJul += i
+            print(i)
     return sumJul
    
 tak = 10000000
+
+start_time = time.clock()
 sumJuletall= kjor(tak)
+print (time.clock() - start_time, "seconds")
 
 print(sumJuletall)
 
