@@ -31,7 +31,7 @@ class Brett():
         trekk = [[x-2, y-1], [x-2, y+1], [x-1, y-2], [x-1, y+2], [x+1, y-2], [x+1, y+2], [x+2, y-1], [x+2, y+1] ]
 
         for elem in trekk:
-            if self.erInnenforGrid(elem[0], elem[1]):
+            if self._erInnenforGrid(elem[0], elem[1]):
                 mulige.append(self._brett[elem[0]][elem[1]])
         return mulige
     
@@ -48,7 +48,7 @@ class Brett():
         y = 0
         trekk = 0
         while trekk < antallFlytt:
-            mulige = self.finnMulige(x, y)
+            mulige = self._finnMulige(x, y)
             for destinasjon in mulige:
                 if destinasjon.hentFarge() == self._brett[x][y].hentFarge():
                     self._brett[x][y].endreFarge()
