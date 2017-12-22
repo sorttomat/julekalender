@@ -21,7 +21,7 @@ while found_someone == True:
             if person1 in venner:
                 if relation == "vennskap":
                     venner.append(person2)
-                    found_someone =True
+                    found_someone = True
                 else:
                     fiender.append(person2)
                     found_someone = True
