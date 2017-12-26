@@ -34,7 +34,7 @@ def delSpillOppIRunder(trekk, vinnendeSekvenser):
     while i < len(trekk):
         runde.append(trekk[i])
         personX, personO = delOppRunde(runde)
-        if len(runde) >= 3 and (sjekkVinnerRunde(personX, vinnendeSekvenser) or sjekkVinnerRunde(personO, vinnendeSekvenser)):
+        if len(runde) >= 5 and (sjekkVinnerRunde(personX, vinnendeSekvenser) or sjekkVinnerRunde(personO, vinnendeSekvenser)):
             runder.append(runde)
             runde = []
         if len(runde) == 9:
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     runder = delSpillOppIRunder(trekk, vinnendeSekvenser)
     vinner = regnUtVinner(runder, vinnendeSekvenser)            
-    print(vinner)
+    print(vinner, len(runder))
                 
                 
                 

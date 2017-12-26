@@ -6,13 +6,13 @@ class Person():
         self._relasjoner = []
        
     
-    def endreRelasjon(self, relasjon):
+    def settRelasjonTilMeg(self, relasjon):
         self._relasjonTilMeg = relasjon
     
     def hentNavn(self):
         return self._navn
 
-    def hentRelasjon(self):
+    def hentRelasjonTilMeg(self):
         return self._relasjonTilMeg
 
     def hentRelasjoner(self):
@@ -25,13 +25,13 @@ class Person():
         self._alleredeTelt = True
     
     def leggTilRelasjon(self, person, bol):
-        self._relasjoner.append([(person.hentNavn()), person, bol])
+        self._relasjoner.append([person, bol])
     
     def erIRelasjoner(self, person):
         for relasjon in self._relasjoner:
-            if person.hentNavn() == relasjon[0]:
+            if person.hentNavn() == relasjon[0].hentNavn():
                 return True
         return False
 
-    def sjekkRelasjoner(self):
-        return [relasjon for relasjon in self._relasjoner if not relasjon[1].erTelt()]
+    def relasjonerSomIkkeErTelt(self):
+        return [relasjon for relasjon in self._relasjoner if not relasjon[0].erTelt()]
