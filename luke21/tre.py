@@ -1,107 +1,118 @@
 from person import Person
 
-class Tre():
+class Tree():
     def __init__(self, filnavn):
-        self._filnavn = filnavn
-        self._personer = []
-        self._antallVenner = 1
-        self._antallFiender = 0
-        self._navn = []
-        self.leggTilAllePersoner()
-        self.leggTilAlleRelasjoner()
+        self._people = []
+        self._numberOfFriends = 1
+        self._numberOfEnemies = 0
+        self._countedPeople = set()
+        self._names = []
+        self.addAllPeople(filnavn)
+        self.addAllRelations(filnavn)
 
-    def hentAllePersoner(self):
-        return self._personer
+    def isCounted(self, personObject):
+        if personObject in self._countedPeople:
+            return True
+        return False
 
-    def printMineRelasjoner(self):
-        nøytrale = self.finnAntallNøytrale()
-        print("Venner: {}\nFiender: {}\nNøytrale: {}\n".format(self._antallVenner, self._antallFiender, nøytrale))
+    def isAlreadyAdded(self, person):
+        if person in self._names:
+            return True
+        return False
 
-    def leggTilAllePersoner(self):
-        with open(self._filnavn, "r") as infile:
+    def countPerson(self, personObject):
+        self._countedPeople.add(personObject)
+        
+    def getAllPeople(self):
+        return self._people
+
+    def addPerson(self, navn):
+        self._people.append(Person(navn))
+        self._names.append(navn)
+
+    def printMyRelations(self):
+        neutrals = self.findAllNeutrals()
+        print("Friends: {}\nEnemies: {}\nNeutrals: {}\n".format(self._numberOfFriends, self._numberOfEnemies, neutrals))
+
+    def addAllPeople(self, filename):
+        with open(filename, "r") as infile:
             for line in infile:
-                relasjon, person1, person2 = line.split()
-                if person1 not in self._navn:
-                    self._personer.append(Person(person1))
-                    self._navn.append(person1)
-                if person2 not in self._navn:
-                    self._personer.append(Person(person2))
-                    self._navn.append(person2)
-        print("lagt til alle personer!")
+                relation, person1, person2 = line.split()
+                if not self.isAlreadyAdded(person1):
+                    self.addPerson(person1)
+                if not self.isAlreadyAdded(person2):
+                    self.addPerson(person2)
+        print("Added all people!")
         infile.close()
     
-    def leggTilAlleRelasjoner(self):
-        infile = open(self._filnavn)
+    def addAllRelations(self, filename):
+        infile = open(filename)
         lines = infile.readlines()
-        for person in self._personer:
-            for line in lines:
-                relasjon, person1, person2 = line.split()
-                if relasjon == "fiendskap":
-                    relasjon = False
-                else:
-                    relasjon = True
-                if person1 == person.hentNavn():
-                    if person.erIRelasjoner(self.finnPersonObjekt(person2)) == False:
-                        person.leggTilRelasjon(self.finnPersonObjekt(person2), relasjon)
-                        
-                if person2 == person.hentNavn():
-                    if person.erIRelasjoner(self.finnPersonObjekt(person1)) == False:
-                        person.leggTilRelasjon(self.finnPersonObjekt(person1), relasjon)     
+        for line in lines:
+            relation, person1, person2 = line.split()
+            person1 = self.findPersonObject(person1)
+            person2 = self.findPersonObject(person2)
+            if relation == "fiendskap":
+                relation = False
+            else:
+                relation = True
+            if not person1.isInRelations(person2):
+                person1.addRelation(person2, relation)      
+            if not person2.isInRelations(person1):
+                person2.addRelation(person1, relation)     
         infile.close()
-        print("Lagt til alle relasjoner")
+        print("Added all relations!")
 
-    def finnAntallNøytrale(self):
-        totaltAntallPersoner = len(self._personer)
-        vennerOgFiender = self._antallVenner + self._antallFiender
-        return totaltAntallPersoner - vennerOgFiender  
+    def findAllNeutrals(self):
+        totalNumberOfPeople = len(self._people)
+        friendsEnemies = self._numberOfFriends + self._numberOfEnemies
+        return totalNumberOfPeople - friendsEnemies  
 
-    def finnPersonObjekt(self, navn):
-        for person in self._personer:
-            if person.hentNavn() == navn:
+    def findPersonObject(self, name):
+        for person in self._people:
+            if person.getName() == name:
                 return person
 
-    def gå(self, person): #Personen man går fra
-        relasjonTilMeg = person.hentRelasjonTilMeg()
-        relasjoner = person.relasjonerSomIkkeErTelt()
+    def go(self, person): #Personen man går fra
+        relationToMe = person.getRelationToMe()
+        relations = person.getRelations()
+        for relation in relations:          
+            newPerson = relation[0]
+            if self.isCounted(newPerson):
+                continue
 
-        for nyRelasjon in relasjoner:          
-            nyPerson = nyRelasjon[0]
-            nyRelasjon = nyRelasjon[1] 
-            if relasjonTilMeg == False:
-                if nyRelasjon == True:
-                    nyPerson.settRelasjonTilMeg(False)
-                    self._antallFiender += 1
+            newRelation = relation[1]
+            if relationToMe == False:
+                if newRelation == True:
+                    newPerson.setRelationToMe(False)
+                    self._numberOfEnemies += 1
                 else:
-                    nyPerson.settRelasjonTilMeg(True)
-                    self._antallVenner += 1
+                    newPerson.setRelationToMe(True)
+                    self._numberOfFriends += 1
             else:
-                if nyRelasjon == True:
-                    nyPerson.settRelasjonTilMeg(True)
-                    self._antallVenner += 1
-
+                if newRelation == True:
+                    newPerson.setRelationToMe(True)
+                    self._numberOfFriends += 1
                 else:
-                    nyPerson.settRelasjonTilMeg(False)
-                    self._antallFiender += 1
-            nyPerson.tell()
-            self.gå(nyPerson)  
-
-            
+                    newPerson.setRelationToMe(False)
+                    self._numberOfEnemies += 1
+            self.countPerson(newPerson)
+            self.go(newPerson)  
+   
     def start(self):
-        startPerson1 = self.finnPersonObjekt("Asgeir")
-        startPerson1.endreRelasjon(True)
-        startPerson1.tell()
-        self.gå(startPerson1)                
+        startPerson = self.findPersonObject("Asgeir")
+        startPerson.setRelationToMe(True)
+        self.countPerson(startPerson)
+        self.go(startPerson)         
 
 import sys
 
-print(sys.getrecursionlimit())
-
 sys.setrecursionlimit(5000)
-tre = Tre("etterretningsrapport.txt")
+tree = Tree("etterretningsrapport.txt")
 
-tre.start()
+tree.start()
 
-tre.printMineRelasjoner()
+tree.printMyRelations()
                     
                     
                     
